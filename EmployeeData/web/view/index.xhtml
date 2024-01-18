@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{empBean.loadData()}"/>
+    </f:metadata>
+    <h:head>
+        <title>Employee Data</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"/>
+    </h:head>
+    <h:body>
+
+        <!-- the icon button -->
+        <h:form>
+            <p:commandButton type="submit" icon="ui-icon-plusthick" class="btn" style="color: white" action="add">
+            </p:commandButton>
+        </h:form>
+
+
+        <!-- display all data from database -->
+        <h:form >
+
+            <h:dataTable value="#{empBean.employeesList}" var="employees">
+
+                <f:facet name="header">Employee Code </f:facet>
+                <h:column>#{employees.empCode}</h:column>
+
+                <f:facet name="header">Employee Name</f:facet>
+                <h:column>#{employees.empName}</h:column>
+
+                <f:facet name="header">Employee Address</f:facet>
+                <h:column>#{employees.empAddress}</h:column>
+
+                <f:facet name="header">Employee Email</f:facet>
+                <h:column>#{employees.empEmail}</h:column>
+
+
+            </h:dataTable>
+
+        </h:form>
+
+
+
+    </h:body>
+    <!-- :( -->
+
+    <!-- I tried to use pop up dialog but no data inserted in database, maybe 
+    I read somewhere that there is attribute called update 
+    but I cannot understand it enough -->
+    <!--        <h:form>
+    
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" width="350" widgetVar="dialog">
+                    <p:inputText id="empCode" value="#{empBean.employee.empCode}"/>
+                    <p:inputText id="empName" value="#{empBean.employee.empName}"/>
+                    <p:commandButton value="submit"  styleClass="ui-confirmdialog-yes" onclick="#{empBean.insertData()}"/> 
+                </p:confirmDialog>
+            </h:form>-->
+
+</html>
+

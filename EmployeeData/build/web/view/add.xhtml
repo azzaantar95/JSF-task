@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Add New Employee</title>
+    </h:head>
+    <h:body>
+
+
+
+        <h:form>
+            <h:panelGrid columns="2" border="1">
+                <h:outputLabel>Employee Code</h:outputLabel>
+                <h:inputText id="empCode" value="#{empBean.employee.empCode}" required="true">
+                    <f:validateRequired />
+                </h:inputText>
+
+                <h:outputLabel>Employee Name</h:outputLabel>
+                <p:inputText id="empName" value="#{empBean.employee.empName}"/>
+
+
+                <h:outputLabel>Employee Address</h:outputLabel>
+                <p:inputText id="empAddress" value="#{empBean.employee.empAddress}"/>
+
+                <h:outputLabel>Employee Email</h:outputLabel>
+                <p:inputText id="empEmail" value="#{empBean.employee.empEmail}">
+                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+
+                </p:inputText>
+                <h:message  for ="empEmail"/>
+            </h:panelGrid>
+
+            <br></br>
+
+            <p:commandButton value="Add" styleClass="ui-confirmdialog-yes" action="#{empBean.insertData()}"/> 
+            <p:spacer width = "50" height = "10" />
+            <p:commandButton value="Cancel"  styleClass="ui-confirmdialog-yes" action="index"/> 
+            <p:commandButton value="Edit"  styleClass="ui-confirmdialog-yes" action="#{empBean.updateData()}"/> 
+            <p:commandButton value="go back" action="index"/>  
+        </h:form>
+        <br></br>
+
+    </h:body>
+</html>
+
