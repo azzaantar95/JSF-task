@@ -5,8 +5,10 @@
  */
 package control.db.dao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 
 import javax.faces.bean.ViewScoped;
@@ -14,6 +16,8 @@ import model.Employee;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -49,6 +53,12 @@ public class EmpBean {
 
     }
 
+    public void loadDataByID() throws Exception {
+        System.out.println("hi from lood");
+         EmpDao.getInstance().getDataById();
+
+    }
+
     //inset new employee to database
     public void insertData() throws Exception {
         EmpDao.getInstance().insertData(employee);
@@ -57,6 +67,15 @@ public class EmpBean {
     // edit existed employee in the database
     public void updateData() throws Exception {
         EmpDao.getInstance().updateData(employee);
+    }
+
+    public void deleteData() throws Exception {
+
+        System.out.println("sssssssssssssssssss");
+
+        EmpDao.getInstance().deleteData(employee);
+        System.out.println(employee.getEmpCode());
+
     }
 
     // setters and getters for list of employees which is retrieved from the database
@@ -68,4 +87,5 @@ public class EmpBean {
         this.employeesList = employeesList;
     }
 
+    ///////////////
 }

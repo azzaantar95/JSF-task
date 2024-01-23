@@ -15,8 +15,12 @@ import java.util.List;
 public interface DaoList<T> {
 
     public List<T> getAllData() throws Exception;
+    
+    public String getDataById() throws Exception;
 
     public int insertData(T t) throws Exception;
 
     public int updateData(T t) throws Exception;
+
+    public int deleteData(T t) throws Exception;
 }

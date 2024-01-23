@@ -14,33 +14,74 @@
     <h:body>
 
         <!-- the icon button -->
-        <h:form>
-            <p:commandButton type="submit" icon="ui-icon-plusthick" class="btn" style="color: white" action="add">
-            </p:commandButton>
-        </h:form>
+
 
 
         <!-- display all data from database -->
-        <h:form >
-
-            <h:dataTable value="#{empBean.employeesList}" var="employees">
-
-                <f:facet name="header">Employee Code </f:facet>
-                <h:column>#{employees.empCode}</h:column>
-
-                <f:facet name="header">Employee Name</f:facet>
-                <h:column>#{employees.empName}</h:column>
-
-                <f:facet name="header">Employee Address</f:facet>
-                <h:column>#{employees.empAddress}</h:column>
-
-                <f:facet name="header">Employee Email</f:facet>
-                <h:column>#{employees.empEmail}</h:column>
+        <center>
 
 
-            </h:dataTable>
+            <h:form>
 
-        </h:form>
+                <h:commandButton type="button" value="Add" action="add?faces-redirect=true" >
+                    <f:ajax />
+                </h:commandButton>
+
+
+
+                <h:dataTable value="#{empBean.employeesList}" var="employees" border="1">
+
+
+                    <h:column>
+
+                        <f:facet name="header">Employee Code </f:facet>
+                        <h:outputText value="#{employees.empCode}"> </h:outputText>
+                    </h:column>
+
+
+
+                    <h:column>
+                        <f:facet name="header">Employee Name</f:facet>
+                        <h:outputText value="#{employees.empName}"> </h:outputText>
+                    </h:column>
+
+
+
+                    <h:column>
+                        <f:facet name="header">Employee Address</f:facet>
+                        <h:outputText value="#{employees.empAddress}"> </h:outputText>
+
+                    </h:column>
+
+
+
+                    <h:column>
+                        <f:facet name="header">Employee Email</f:facet>
+                        <h:outputText value="#{employees.empEmail}"> </h:outputText>
+
+                    </h:column>
+
+
+                    <h:column>
+                        <f:facet name="header">Edit</f:facet>
+                        <h:commandButton value="Edit" onclick="#{empBean.loadDataByID()}">
+                            <f:param name="action" value="#{employees.empId}"/>
+                        </h:commandButton>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Delete</f:facet>
+                        <h:commandButton value="Delete" action="#{empBean.deleteData()}">
+                            <f:param name="action" value="#{employees.empId}" />
+                        </h:commandButton>              
+                    </h:column>
+
+
+                </h:dataTable>
+
+
+            </h:form>
+        </center>
 
 
 

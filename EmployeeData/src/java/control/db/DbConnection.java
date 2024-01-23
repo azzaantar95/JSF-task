@@ -26,7 +26,7 @@ public class DbConnection {
         databaseConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/employee?useSSL=false", "root", "root");
 
         if (databaseConnection != null) {
-            System.err.println("connected");
+            System.out.println("connected");
             return databaseConnection;
 
         }

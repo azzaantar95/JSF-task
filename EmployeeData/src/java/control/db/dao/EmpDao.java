@@ -11,8 +11,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
 import model.Employee;
 
 /**
@@ -36,6 +38,41 @@ public class EmpDao extends DbConnection implements DaoList<Employee> {
         }
 
         return empDao;
+    }
+
+    private Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+
+    @Override
+    public String getDataById() throws Exception {
+
+        Connection connection = null;
+
+        Employee obj_emp = null;
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        String field_Emp_Id = params.get("action");
+        try {
+            connection = getConnection();
+            Statement st = connection.createStatement();
+            ResultSet resultSet = st.executeQuery("SELECT * FROM employee WHERE employeeId=" + field_Emp_Id);
+
+            while (resultSet.next()) {
+                obj_emp = new Employee();
+
+                obj_emp.setEmpId(resultSet.getInt("employeeId"));
+                obj_emp.setEmpCode(resultSet.getString("employeeCode"));
+                obj_emp.setEmpName(resultSet.getString("employeeName"));
+                obj_emp.setEmpAddress(resultSet.getString("employeeAddress"));
+                obj_emp.setEmpEmail(resultSet.getString("employeeEmail"));
+
+                sessionMap.put("editEmployee", obj_emp);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "view/edit.xhtml?faces-redirect=true";
     }
 
     // business logic of get method for all employees from database 
@@ -109,6 +146,9 @@ public class EmpDao extends DbConnection implements DaoList<Employee> {
     @Override
     public int updateData(Employee emp) {
 
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        String update_sl_no = params.get("update_sl_no");
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         int count = 0;
@@ -133,6 +173,35 @@ public class EmpDao extends DbConnection implements DaoList<Employee> {
 
         }
 
+        return count;
+    }
+
+    @Override
+    public int deleteData(Employee emp) throws Exception {
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        String emp_Id = params.get("action");
+        Connection connection = null;
+
+        PreparedStatement preparedStatement = null;
+
+        int count = 0;
+
+        try {
+            connection = getConnection();
+            String sqlQuery = "DELETE FROM employee WHERE employeeCode=?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+
+            preparedStatement.setString(1, emp_Id);
+
+            count = preparedStatement.executeUpdate();
+
+        } catch (Exception ex) {
+            Logger.getLogger(EmpDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+        }
         return count;
     }
 
