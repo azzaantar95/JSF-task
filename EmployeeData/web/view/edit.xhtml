@@ -3,36 +3,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">>
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        
+        
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         <center>
-            <p:spacer height="100px" ></p:spacer>
+            
             <h:form>
                 <h:panelGrid columns="2" border="1">
 
 
-                    Enter Employee Code <h:inputText value="#{editEmployee.employeeCode}"/>
-                      
-
-
-                    Enter Employee Name  <h:inputText  value="#{editEmployee.employeeName}"/>
+                    Enter Employee Code <h:inputText value="#{editEmployee.empCode}"/>
 
 
 
-                    Enter Employee Address  <h:inputText value="#{editEmployee.employeeAddress}"/>
+                    Enter Employee Name  <h:inputText  value="#{editEmployee.empName}"/>
 
 
-                    Enter Employee Email  <h:inputText value="#{editEmployee.employeeEmail}"/>
+
+                    Enter Employee Address  <h:inputText value="#{editEmployee.empAddress}"/>
+
+
+                    Enter Employee Email  <h:inputText value="#{editEmployee.empEmail}"/>
 
 
                 </h:panelGrid>
 
 
-                <p:commandButton value="Add" styleClass="ui-confirmdialog-yes" action="#{empBean.updateData()}" >
-                    <f:param name="update_sl_no" value="#{editEmployee.employeeId}"></f:param>
+                <p:commandButton value="update" styleClass="ui-confirmdialog-yes" action="#{empBean.updateData(editEmployee)}" >
+
+                </p:commandButton>
+                <p:commandButton value="Cancel and go back " styleClass="ui-confirmdialog-yes" action="#{empBean.goBack()}" >
+
                 </p:commandButton>
 
             </h:form>

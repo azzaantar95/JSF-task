@@ -13,25 +13,24 @@
     </h:head>
     <h:body>
 
-        <!-- the icon button -->
-
-
-
-        <!-- display all data from database -->
-        <center>
-
-
-            <h:form>
-
-                <h:commandButton type="button" value="Add" action="add?faces-redirect=true" >
+        <h:form>
+            <!-- display all data from database -->
+            <center>
+                <h1><h:outputText value="Employees Records"/></h1>
+                <p:commandButton type="button" value="Add Employee" action="add?faces-redirect=true" style="height: 40px" >
                     <f:ajax />
-                </h:commandButton>
+                </p:commandButton>
+                <p:spacer height="50px" width="50px"></p:spacer>
 
 
 
                 <h:dataTable value="#{empBean.employeesList}" var="employees" border="1">
 
 
+                    <h:column>
+                        <f:facet name="header">Employee Number</f:facet>
+                        <h:outputText value="#{empBean.index }" />
+                    </h:column>
                     <h:column>
 
                         <f:facet name="header">Employee Code </f:facet>
@@ -64,41 +63,26 @@
 
                     <h:column>
                         <f:facet name="header">Edit</f:facet>
-                        <h:commandButton value="Edit" onclick="#{empBean.loadDataByID()}">
-                            <f:param name="action" value="#{employees.empId}"/>
-                        </h:commandButton>
+                        <h:commandButton value="Edit" action="#{empBean.loadDataByID(employees.empId)}"/>
+
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">Delete</f:facet>
-                        <h:commandButton value="Delete" action="#{empBean.deleteData()}">
-                            <f:param name="action" value="#{employees.empId}" />
-                        </h:commandButton>              
+                        <h:commandButton value="Delete" action="#{empBean.deleteData(employees.empId)}"/>
+
                     </h:column>
 
 
                 </h:dataTable>
 
 
-            </h:form>
-        </center>
 
+            </center>
+        </h:form>
 
 
     </h:body>
-    <!-- :( -->
-
-    <!-- I tried to use pop up dialog but no data inserted in database, maybe 
-    I read somewhere that there is attribute called update 
-    but I cannot understand it enough -->
-    <!--        <h:form>
-    
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" width="350" widgetVar="dialog">
-                    <p:inputText id="empCode" value="#{empBean.employee.empCode}"/>
-                    <p:inputText id="empName" value="#{empBean.employee.empName}"/>
-                    <p:commandButton value="submit"  styleClass="ui-confirmdialog-yes" onclick="#{empBean.insertData()}"/> 
-                </p:confirmDialog>
-            </h:form>-->
 
 </html>
 

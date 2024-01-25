@@ -16,11 +16,11 @@ public interface DaoList<T> {
 
     public List<T> getAllData() throws Exception;
     
-    public String getDataById() throws Exception;
+    public String getDataById(int employeeId) throws Exception;
 
-    public int insertData(T t) throws Exception;
+    public String insertData(T t) throws Exception;
 
-    public int updateData(T t) throws Exception;
+    public String updateData(T t) throws Exception;
 
-    public int deleteData(T t) throws Exception;
+    public String deleteData(int employeeId) throws Exception;
 }

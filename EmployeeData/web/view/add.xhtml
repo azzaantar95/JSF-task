@@ -13,32 +13,35 @@
         <center>
             <p:spacer height="100px" ></p:spacer>
             <h:form>
-                <h:panelGrid columns="2" border="1">
+                <h:panelGrid  border="1" columns="2">
 
 
-                    Enter Employee Code <h:inputText id="empCode" value="#{empBean.employee.empCode}" required="true">
+                    <p:inputText id="empCode" placeholder="Enter Employee Code" value="#{empBean.employee.empCode}" required="true">
                         <f:validateRequired />
-                    </h:inputText>
+                    </p:inputText>
 
 
-                    Enter Employee Name  <h:inputText id="empName" value="#{empBean.employee.empName}"/>
+                    <p:inputText  placeholder="Enter Employee Name"  id="empName" value="#{empBean.employee.empName}"/>
 
 
 
-                    Enter Employee Address  <h:inputText id="empAddress" value="#{empBean.employee.empAddress}"/>
+                    <p:inputText placeholder="Enter Employee Address" id="empAddress" value="#{empBean.employee.empAddress}"/>
 
 
-                    Enter Employee Email  <h:inputText id="empEmail" value="#{empBean.employee.empEmail}">
+                    <p:inputText placeholder="Enter Employee Email"   id="empEmail" value="#{empBean.employee.empEmail}">
                         <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 
-                    </h:inputText>
+                    </p:inputText>
                     <h:message  for ="empEmail"/>
                 </h:panelGrid>
-
-
-                <p:commandButton value="Add" styleClass="ui-confirmdialog-yes" action="#{empBean.insertData()}"/> 
+                <p:commandButton value="Add" styleClass="ui-confirmdialog-yes" action="#{empBean.insertData(empBean.employee)}"/> 
                 <p:spacer width = "50px" height = "10px"/>
-                <p:commandButton value="Cancel" styleClass="ui-confirmdialog-yes" action="index"/> 
+                <p:commandButton value="Cancel and go back"  action="#{empBean.goBack()}"/>
+
+
+
+
+
 
             </h:form>
         </center>

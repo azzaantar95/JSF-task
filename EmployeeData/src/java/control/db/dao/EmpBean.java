@@ -6,31 +6,45 @@
 package control.db.dao;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.context.Dependent;
 import javax.faces.bean.ApplicationScoped;
 
-import javax.faces.bean.ViewScoped;
 import model.Employee;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
+
 
 /**
  *
  * @author AZZA
  */
-@ManagedBean(name = "empBean")
-@RequestScoped
+
+@ManagedBean
+
+@SessionScoped
 public class EmpBean {
 
     // instead of write attributes of employee, inject employee object hereS
     private Employee employee = new Employee();
 
     private List<Employee> employeesList = new ArrayList<>();
+
+    private int index = 1;
+
+    public int getIndex() {
+        return index++;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     /**
      * Creates a new instance of EmpBean
@@ -53,28 +67,25 @@ public class EmpBean {
 
     }
 
-    public void loadDataByID() throws Exception {
-        System.out.println("hi from lood");
-         EmpDao.getInstance().getDataById();
+    public String loadDataByID(int employeeId) throws Exception {
+        System.out.println("hi from getdataby Id");
+        return EmpDao.getInstance().getDataById(employeeId);
 
     }
 
     //inset new employee to database
-    public void insertData() throws Exception {
-        EmpDao.getInstance().insertData(employee);
+    public String insertData(Employee employee) throws Exception {
+        return EmpDao.getInstance().insertData(employee);
     }
 
     // edit existed employee in the database
-    public void updateData() throws Exception {
-        EmpDao.getInstance().updateData(employee);
+    public String updateData(Employee employee) throws Exception {
+        return EmpDao.getInstance().updateData(employee);
     }
 
-    public void deleteData() throws Exception {
+    public String deleteData(int employeeId) throws Exception {
 
-        System.out.println("sssssssssssssssssss");
-
-        EmpDao.getInstance().deleteData(employee);
-        System.out.println(employee.getEmpCode());
+        return EmpDao.getInstance().deleteData(employeeId);
 
     }
 
@@ -87,5 +98,9 @@ public class EmpBean {
         this.employeesList = employeesList;
     }
 
-    ///////////////
+    public String goBack() {
+
+       // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("editEmployee", null);
+        return "index?faces-redirect=true";
+    }
 }
